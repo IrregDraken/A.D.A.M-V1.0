@@ -1,6 +1,5 @@
 .env
 __pycache__/
 *.py[cod]
-
-instance/
-    .gitkeep
+instance/*.db
+venv/
