@@ -24,6 +24,11 @@ def send_alert(
     Send a security alert to Telegram.
     """
 
+    if not Config.TELEGRAM_CHAT_ID:
+        raise RuntimeError(
+            "TELEGRAM_CHAT_ID is missing."
+        )
+
     message = (
 
         "🚨 <b>SECURITY ALERT</b>\n\n"

@@ -1,13 +1,7 @@
 """
 telegram/bot.py
 ------------------------------------
-Creates the Telegram bot instance.
-
-Responsibilities:
-- Initialize the bot.
-- Provide a single shared bot object.
-
-Nothing else belongs here.
+Creates the shared Telegram bot instance.
 """
 
 import telebot
@@ -15,15 +9,22 @@ import telebot
 from config import Config
 
 
-# Ensure the bot token exists
-if not Config.TELEGRAM_BOT_TOKEN:
+TOKEN = Config.TELEGRAM_BOT_TOKEN
+
+if not TOKEN:
+
     raise RuntimeError(
-        "TELEGRAM_BOT_TOKEN not found. Check your .env file."
+        "\n"
+        "TELEGRAM_BOT_TOKEN is missing.\n\n"
+        "Local:\n"
+        "  Add it to your .env file.\n\n"
+        "Production:\n"
+        "  Add it as a Fly Secret:\n"
+        "  fly secrets set TELEGRAM_BOT_TOKEN=<token>\n"
     )
 
 
-# Create ONE bot instance for the whole project
 bot = telebot.TeleBot(
-    Config.TELEGRAM_BOT_TOKEN,
+    TOKEN,
     parse_mode="HTML"
 )
